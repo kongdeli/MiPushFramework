@@ -69,14 +69,10 @@ android {
                 alias = properties.getProperty("KEYSTORE_ALIAS")
                 pwd = properties.getProperty("KEY_PASSWORD")
             }
-
-            storeFile file(locale != null ? locale : project.rootProject.file(".yuuta.jks"))
-            storePassword keystorePwd != null ?
-                    keystorePwd : System.getenv("KEYSTORE_PASS")
-            keyAlias alias != null ?
-                    alias : System.getenv("ALIAS_NAME")
-            keyPassword pwd != null ?
-                    pwd : System.getenv("ALIAS_PASS")
+            storeFile file('/Users/kdl/Documents/keystore/kdl')
+            storePassword 'qq8581766'
+            keyAlias 'kdl'
+            keyPassword 'qq8581766'
         }
         release {
             // 满足下面两个条件时需要此配置
@@ -116,9 +112,7 @@ dependencies {
     implementation project(':extenders')
     implementation "com.android.support:palette-v7:$supportLibraryVersion"
     compileOnly 'de.robv.android.xposed:api:82'
-
     implementation 'com.catchingnow.icebox:SDK:1.0.5'
-
     // Fabric
     implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true

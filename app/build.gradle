@@ -47,26 +47,22 @@ android {
     }
     signingConfigs {
         debug {
-            def locale = null
-            def keystorePwd = null
-            def alias = null
-            def pwd = null
-            if (project.rootProject.file('local.properties').exists()) {
-                Properties properties = new Properties()
-                properties.load(project.rootProject.file('local.properties').newDataInputStream())
-                locale = properties.getProperty("KEY_LOCATE")
-                keystorePwd = properties.getProperty("KEYSTORE_PASSWORD")
-                alias = properties.getProperty("KEYSTORE_ALIAS")
-                pwd = properties.getProperty("KEY_PASSWORD")
-            }
-
-            storeFile file(locale != null ? locale : project.rootProject.file(".yuuta.jks"))
-            storePassword keystorePwd != null ?
-                    keystorePwd : System.getenv("KEYSTORE_PASS")
-            keyAlias alias != null ?
-                    alias : System.getenv("ALIAS_NAME")
-            keyPassword pwd != null ?
-                    pwd : System.getenv("ALIAS_PASS")
+//            def locale = null
+//            def keystorePwd = null
+//            def alias = null
+//            def pwd = null
+//            if (project.rootProject.file('local.properties').exists()) {
+//                Properties properties = new Properties()
+//                properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//                locale = properties.getProperty("KEY_LOCATE")
+//                keystorePwd = properties.getProperty("KEYSTORE_PASSWORD")
+//                alias = properties.getProperty("KEYSTORE_ALIAS")
+//                pwd = properties.getProperty("KEY_PASSWORD")
+//            }
+            storeFile file('/Users/kdl/Documents/keystore/kdl')
+            storePassword 'qq8581766'
+            keyAlias 'kdl'
+            keyPassword 'qq8581766'
         }
         release {
             // 满足下面两个条件时需要此配置
@@ -82,13 +78,13 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    String taskName = String.format("remove%sStubClasses", variant.name.capitalize())
-    task "${taskName}" {
-        doLast { delete "${buildDir}/intermediates/classes/${variant.name}" + "/android" }
-    }
-    variant.processJavaResources.dependsOn(taskName)
-}
+//android.applicationVariants.all { variant ->
+//    String taskName = String.format("remove%sStubClasses", variant.name.capitalize())
+//    task "${taskName}" {
+//        doLast { delete "${buildDir}/intermediates/classes/${variant.name}" + "/android" }
+//    }
+//    variant.processJavaResources.dependsOn(taskName)
+//}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -119,18 +115,18 @@ dependencies {
         exclude group: 'com.android.support'
     })
     // RxJava & RxAndroid
-    implementation ("io.reactivex.rxjava2:rxandroid:$rxAndroidVersion", {
+    implementation("io.reactivex.rxjava2:rxandroid:$rxAndroidVersion", {
         exclude group: 'com.android.support'
     })
-    implementation ("io.reactivex.rxjava2:rxjava:$rxVersion", {
+    implementation("io.reactivex.rxjava2:rxjava:$rxVersion", {
         exclude group: 'com.android.support'
     })
     // RxActivityResult
-    implementation ('com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x', {
+    implementation('com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x', {
         exclude group: 'com.android.support'
     })
     // RxPermissions
-    implementation ('com.github.tbruyelle:rxpermissions:0.10.2', {
+    implementation('com.github.tbruyelle:rxpermissions:0.10.2', {
         exclude group: 'com.android.support'
     })
     // Work

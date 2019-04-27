@@ -240,7 +240,6 @@ public class NotificationController {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int iconSmallId = getIconId(context, packageName, NOTIFICATION_SMALL_ICON);
             if (iconSmallId <= 0) {
-
                 Bitmap whiteIconBitmap = IconCache.getInstance().getWhiteIconBitmap(context, packageName);
                 if (whiteIconBitmap != null) {
                     notificationBuilder.setSmallIcon(Icon.createWithBitmap(whiteIconBitmap));
