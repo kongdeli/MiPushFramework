@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.text.TextUtils;
@@ -20,10 +21,16 @@ import com.xiaomi.xmsf.R;
 import com.xiaomi.xmsf.utils.ColorUtil;
 
 
+import top.trumeet.common.Constants;
 import top.trumeet.common.cache.ApplicationNameCache;
 import top.trumeet.common.cache.IconCache;
 import top.trumeet.common.utils.NotificationUtils;
 
+import static top.trumeet.common.Constants.packageNames.ALI_PAY;
+import static top.trumeet.common.Constants.packageNames.CLOUD_WEATHER;
+import static top.trumeet.common.Constants.packageNames.KNOWLEDGE_PLANET;
+import static top.trumeet.common.Constants.packageNames.SOUL;
+import static top.trumeet.common.Constants.packageNames.WECHAT_WORK;
 import static top.trumeet.common.utils.NotificationUtils.getChannelIdByPkg;
 import static top.trumeet.common.utils.NotificationUtils.getGroupIdByPkg;
 
@@ -109,7 +116,7 @@ public class NotificationController {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         StatusBarNotification[] activeNotifications = manager.getActiveNotifications();
 
-        
+
         int notificationCntInGroup = 0;
         for (StatusBarNotification statusBarNotification : activeNotifications) {
             if (groupId.equals(statusBarNotification.getNotification().getGroup())) {
@@ -238,20 +245,43 @@ public class NotificationController {
 
     public static void processSmallIcon(Context context, String packageName, Notification.Builder notificationBuilder) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int iconSmallId = getIconId(context, packageName, NOTIFICATION_SMALL_ICON);
-            if (iconSmallId <= 0) {
-                Bitmap whiteIconBitmap = IconCache.getInstance().getWhiteIconBitmap(context, packageName);
-                if (whiteIconBitmap != null) {
-                    notificationBuilder.setSmallIcon(Icon.createWithBitmap(whiteIconBitmap));
-                } else {
-                    notificationBuilder.setSmallIcon(R.drawable.ic_notifications_black_24dp);
-                }
-
-            } else {
-                notificationBuilder.setSmallIcon(Icon.createWithResource(packageName, iconSmallId));
+            switch (packageName) {
+                case ALI_PAY:
+                    notificationBuilder.setSmallIcon(R.drawable.push_icon_alipay);
+                    break;
+                case KNOWLEDGE_PLANET:
+                    notificationBuilder.setSmallIcon(R.drawable.push_icon_planet);
+                    break;
+                case WECHAT_WORK:
+                    notificationBuilder.setSmallIcon(R.drawable.push_icon_qywx);
+                    break;
+                case SOUL:
+                    notificationBuilder.setSmallIcon(R.drawable.push_icon_soul);
+                    break;
+                case CLOUD_WEATHER:
+                    notificationBuilder.setSmallIcon(R.drawable.push_icon_weather);
+                    break;
+                default:
+                    realProcessSmallIcon(context, packageName, notificationBuilder);
             }
         } else {
             notificationBuilder.setSmallIcon(R.drawable.ic_notifications_black_24dp);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private static void realProcessSmallIcon(Context context, String packageName, Notification.Builder notificationBuilder) {
+        int iconSmallId = getIconId(context, packageName, NOTIFICATION_SMALL_ICON);
+        if (iconSmallId <= 0) {
+            Bitmap whiteIconBitmap = IconCache.getInstance().getWhiteIconBitmap(context, packageName);
+            if (whiteIconBitmap != null) {
+                notificationBuilder.setSmallIcon(Icon.createWithBitmap(whiteIconBitmap));
+            } else {
+                notificationBuilder.setSmallIcon(R.drawable.ic_notifications_black_24dp);
+            }
+
+        } else {
+            notificationBuilder.setSmallIcon(Icon.createWithResource(packageName, iconSmallId));
         }
     }
 
@@ -271,11 +301,9 @@ public class NotificationController {
     }
 
 
-
     private static int getIconId(Context context, String str, String str2) {
         return context.getResources().getIdentifier(str2, "drawable", str);
     }
-
 
 
     public static void test(Context context, String packageName, String title, String description) {

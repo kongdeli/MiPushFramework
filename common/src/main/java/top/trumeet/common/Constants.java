@@ -8,7 +8,7 @@ import android.content.Context;
  */
 
 public final class Constants {
-    private Constants () {
+    private Constants() {
         throw new UnsupportedOperationException("What are U doing");
     }
 
@@ -28,24 +28,28 @@ public final class Constants {
 
     /**
      * Enable push.
+     *
      * @see top.trumeet.common.push.PushController
      */
     public static final String KEY_ENABLE_PUSH = "enable_push";
 
     /**
      * XMPush APP id
+     *
      * @see top.trumeet.common.push.PushController
      */
     public static String APP_ID = "1000271";
 
     /**
      * XMPush APP key
+     *
      * @see top.trumeet.common.push.PushController
      */
     public static String APP_KEY = "420100086271";
 
     /**
      * Every page item count
+     *
      * @see top.trumeet.mipushframework.event.EventFragment
      */
     public static final int PAGE_SIZE = 20;
@@ -93,6 +97,7 @@ public final class Constants {
 
     /**
      * 用于 Manager 控制 Service 的控制服务的名字
+     *
      * @see top.trumeet.common.push.PushController
      */
     public static final String CONTROLLER_SERVICE_NAME = "com.xiaomi.xmsf.push.control.ControlService";
@@ -112,6 +117,7 @@ public final class Constants {
         public static final String WRITE_SETTINGS = "top.trumeet.mipush.permissions.WRITE_SETTINGS";
         public static final String USE_PUSH_MANAGER_API = "moe.yutua.mipush.permissions.USE_PUSH_MANAGER_API";
     }
+
     public static class permissions_old {
         public static final String GET_VERSION = "top.trumeet.mipush.permissions.GET_VERSION";
     }
@@ -119,4 +125,12 @@ public final class Constants {
     public static final String FAKE_CONFIGURATION_PATH = "/data/misc/riru/modules/mipush_fake/packages/";
     public static final String FAKE_CONFIGURATION_NAME_TEMPLATE = FAKE_CONFIGURATION_PATH + "%1$s.%2$s";
     public static final String FAKE_CONFIGURATION_GLOBAL = Constants.FAKE_CONFIGURATION_PATH + "ALL";
+
+    public static class packageNames {
+        public static final String ALI_PAY = "com.eg.android.AlipayGphone";
+        public static final String KNOWLEDGE_PLANET = "com.unnoo.quan";
+        public static final String WECHAT_WORK = "com.tencent.wework";
+        public static final String SOUL = "cn.soulapp.android";
+        public static final String CLOUD_WEATHER = "com.nowcasting.activity";
+    }
 }
