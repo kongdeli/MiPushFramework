@@ -70,6 +70,10 @@ android {
             // 2. Android Gradle Plugin 版本 >= 2.2.0
             // 作用是只使用旧版签名，禁用V2版签名模式
             v2SigningEnabled false
+            keyAlias 'kdl'
+            keyPassword 'qq8581766'
+            storeFile file('/Users/kdl/Documents/keystore/kdl')
+            storePassword 'qq8581766'
         }
     }
     compileOptions {
